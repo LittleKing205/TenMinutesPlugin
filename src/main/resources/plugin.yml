@@ -1,0 +1,6 @@
+name: TenMinutesPlugin
+version: '${version}'
+main: de.pascalschreiber.tenminutesplugin.TenMinutesPlugin
+api-version: 1.19
+authors: [ Pascal Schreiber ]
+website: www.pascalschreiber.de

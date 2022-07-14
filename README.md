@@ -28,15 +28,11 @@ discordBotToken: "DEIN TOKEN"
 **Discord einrichten und konfigurieren**
 
 1. Solltest du noch keinen Discord Server haben, erstelle dir einen neuen.
-2. Aktiviere den Entwicklermodus auf Discord. Gehe dazu in die *Benutzereinstellungen* und dann auf *Erweitert*. Klicke mit einem Rechtsklick auf deinen Server, kopiere dir die Server ID und füge sie in die *config.yaml* ein.
-```yaml
-serverId: "SERVERID"
-```
-4. Erstelle eine Rolle, um es Usern zu ermöglichen, sich für den nächsten Speedrun anzumelden. Klicke mit einem Rechtsklick auf die Rolle, kopiere die Rollen ID und füge sie in die *config.yaml* ein.
+3. Erstelle eine Rolle, um es Usern zu ermöglichen, sich für den nächsten Speedrun anzumelden. Klicke mit einem Rechtsklick auf die Rolle, kopiere die Rollen ID und füge sie in die *config.yaml* ein.
 ```yaml
 registredRole: "ROLLE FÜR NEUE SPIELER"
 ```
-5. Du benötigst noch eine zweite Rolle für Spieler, die bereits spielen. Erstelle also eine zweite Rolle. Klicke mit einem Rechtsklick auf die Rolle, kopiere die Rollen ID und füge sie in die *config.yaml* ein.
+4. Du benötigst noch eine zweite Rolle für Spieler, die bereits spielen. Erstelle also eine zweite Rolle. Klicke mit einem Rechtsklick auf die Rolle, kopiere die Rollen ID und füge sie in die *config.yaml* ein.
 ```yaml
 activeRole: "AKTIVER SPIELER"
 ```

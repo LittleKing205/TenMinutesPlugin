@@ -17,10 +17,10 @@ public class BotMain {
     private Server server;
 
     private long activeRoleId;
-    private Role activeRole;
+    public Role activeRole;
 
     private long registredRoleId;
-    private Role registredRole;
+    public Role registredRole;
 
     public BotMain(TenMinutesPlugin plugin) {
         this.plugin = plugin;
@@ -66,5 +66,9 @@ public class BotMain {
 
     public TenMinutesPlugin getPlugin() {
         return plugin;
+    }
+
+    public DiscordApi getApi() {
+        return discordApi;
     }
 }

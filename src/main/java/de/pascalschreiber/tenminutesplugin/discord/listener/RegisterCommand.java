@@ -7,6 +7,6 @@ public class RegisterCommand implements MessageCreateListener {
 
     @Override
     public void onMessageCreate(MessageCreateEvent event) {
-
+        
     }
 }

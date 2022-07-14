@@ -27,8 +27,11 @@ public class BotMain {
         discordApi = new DiscordApiBuilder()
                 .setToken(plugin.getConfig().getString("discordBotToken"))
                 .login().join();
-        server = discordApi.getServerById(plugin.getConfig().getInt("discordServerId")).get();
+        server = discordApi.getServers().stream().findFirst().get();
+        startUp();
+    }
 
+    private void startUp() {
         for(Role role : server.getRoles()) {
             if (role.getName().equals(plugin.getConfig().getString("registredRole"))) {
                 registredRoleId = role.getId();
@@ -40,9 +43,13 @@ public class BotMain {
             }
         }
 
-        if (activeRole == null || registredRole == null) {
-            plugin.getLogger().warning("Can't find Server Roles. Shutting down Plugin");
-            plugin.getServer().getPluginManager().disablePlugin(plugin);
+        if (registredRole == null) {
+            registredRole = server.createRoleBuilder().setName(plugin.getConfig().getString("registredRole")).create().join();
+            registredRoleId = registredRole.getId();
+        }
+        if (activeRole == null) {
+            activeRole = server.createRoleBuilder().setName(plugin.getConfig().getString("activeRole")).create().join();
+            activeRoleId = activeRole.getId();
         }
 
         SlashCommand command = SlashCommand.with("register", "Registriert einen Minecraft Account ins Spiel",
@@ -51,6 +58,13 @@ public class BotMain {
                         ))
                 .createForServer(server)
                 .join();
+    }
 
+    public Server getServer() {
+        return server;
+    }
+
+    public TenMinutesPlugin getPlugin() {
+        return plugin;
     }
 }

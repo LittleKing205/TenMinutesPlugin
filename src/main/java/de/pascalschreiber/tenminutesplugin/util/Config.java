@@ -53,6 +53,7 @@ public class Config {
 
         try {
             getConfig().save(cfgFile);
+            reload();
         } catch (IOException e) {
             e.printStackTrace();
         }

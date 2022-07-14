@@ -18,7 +18,7 @@ public class MemberLeaveListener implements ServerMemberLeaveListener {
     public void onServerMemberLeave(ServerMemberLeaveEvent event) {
         Config playerListConfig = bot.getPlugin().playersListConfig;
         ConfigurationSection playersSection = playerListConfig.getConfig().getConfigurationSection("players");
-        for (String key : playersSection.getKeys(false) ) {
+        for (String key : playersSection.getKeys(false)) {
             if (playerListConfig.getConfig().getLong("players." + key + ".DiscordId") == event.getUser().getId()) {
                 playerListConfig.getConfig().set("players." + key, null);
                 playerListConfig.save();

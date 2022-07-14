@@ -31,12 +31,17 @@ discordBotToken: "DEIN TOKEN"
 2. Lade deinen Discord Bot auf den eben erstellten Discord Server ein.
 - Klicke im [Developerportal](https://discord.com/developers/applications) auf deine Applikation
   - Gehe dann zu OAuth2 und auf den URL Generator
-    - Bei den Scopes wählst du Bot aus. Folgende Berechtigungen musst du dem Bot geben, damit er funktionieren kann:
+    - Bei den Scopes wählst du *Bot* und *applications.commands* aus. Folgende Berechtigungen musst du dem Bot geben, damit er funktionieren kann:
+
+    | optionale Berechtigung | Beschreibung |
+    | ------------ | ------------ |
+    | Administrator | Durch die Administratoren Berechtigung erlangt der Bot jegliche Rechte, die du bei *Bot Permissions* siehst. Dadurch musst du dem Bot nicht jede Berechtigung einzeln geben. **Dem Bot ist es jedoch nicht möglich, den Serverinhaber von seinem eigenen Discord Server zu kicken und zu bannen!** |
 
     | Berechtigung | Beschreibung |
     | ------------ | ------------ |
     | Manage Roles |  |
-    | Send Messages | platzhalter |
+    | Send Messages |  |
+    | Use Slash Commands |  |
 4. Optional: Erstelle eine Rolle, die dem Bot hilft, die Discordnamen mit den Minecraftnamen der Spieler zu verknüpfen. Trage den Namen der Rolle in die *config.yaml* ein. Diese Rolle musst du aber nicht erstellen, dass macht der Bot automatisch, wenn du bei *registredRole* nichts eingibst.
 ```yaml
 registredRole: "Verknüpft"   # eigene Rolle

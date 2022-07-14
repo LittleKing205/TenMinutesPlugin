@@ -1,0 +1,6 @@
+discordBotToken: "PUT YOUR TOKEN HERE"
+registredRole: ""
+activeRole: ""
+serverId: ""
+playerAutoActive: true
+playedMessage: ""

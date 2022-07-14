@@ -5,6 +5,7 @@ import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.ChatColor;
 import org.bukkit.entity.Player;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
@@ -14,17 +15,20 @@ public class Timer {
 
     private final TenMinutesPlugin plugin;
     private int elapsedTime;
+    private int sessionTime;
     private boolean paused;
     private ScheduledExecutorService executorService = Executors.newScheduledThreadPool(0);
 
-    public Timer(TenMinutesPlugin plugin, int elapsedTime) {
+    public Timer(TenMinutesPlugin plugin, int elapsedTime, int sessionTime) {
         this.elapsedTime = elapsedTime;
         this.plugin = plugin;
+        this.sessionTime = sessionTime;
     }
 
     public void start(Player player) {
         this.executorService.scheduleAtFixedRate(() -> {
             elapsedTime += 100;
+            sessionTime += 100;
 
             int hours = (elapsedTime / 3600000);
             int minutes = (elapsedTime / 60000) % 60;
@@ -40,6 +44,14 @@ public class Timer {
     }
 
     public void stop() {
+        executorService.shutdownNow();
+    }
 
+    public int getElapsedTimeMilis() {
+        return sessionTime;
+    }
+
+    public int getSessionTimeMilis() {
+        return sessionTime;
     }
 }

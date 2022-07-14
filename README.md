@@ -37,15 +37,15 @@ discordBotToken: "DEIN TOKEN"
     | ------------ | ------------ |
     | Manage Roles |  |
     | Send Messages | platzhalter |
-4. Erstelle eine Rolle, die dem Bot hilft, die Discordnamen mit den Minecraftnamen der Spieler zu verknüpfen. Trage den Namen der Rolle in die *config.yaml* ein. Diese Rolle musst du aber nicht erstellen, dass macht der Bot automatisch, wenn du bei *registredRole* nichts eingibst.
+4. Optional: Erstelle eine Rolle, die dem Bot hilft, die Discordnamen mit den Minecraftnamen der Spieler zu verknüpfen. Trage den Namen der Rolle in die *config.yaml* ein. Diese Rolle musst du aber nicht erstellen, dass macht der Bot automatisch, wenn du bei *registredRole* nichts eingibst.
 ```yaml
 registredRole: "Verknüpft"   # eigene Rolle
-registredRole: ""            # automatisch erstellte Rolle
+registredRole: ""            # lasse die Rolle automatisch erstellen
 ```
-4. Du benötigst noch eine zweite Rolle für Spieler, die in der Warteschlange auf ihren nächsten Versuch warten. Erstelle dazu eine Rolle und füge den Namen der Rolle bei *activeRole:* in die *config.yaml* ein oder lasse *activeRole:* frei, damit der Bot die Rolle selbst erstellt.
+5. Optional: Du benötigst noch eine zweite Rolle für Spieler, die in der Warteschlange auf ihren nächsten Versuch warten. Erstelle dazu eine Rolle und füge den Namen der Rolle bei *activeRole:* in die *config.yaml* ein oder lasse *activeRole:* frei, damit der Bot die Rolle selbst erstellt.
 ```yaml
 activeRole: "Warteschlange" # eigene Rolle
-activeRole: ""              # automatisch erstelle Rolle
+activeRole: ""              # lasse die Rolle automatisch erstellen
 ```
 Du kannst dich hierbei noch entscheiden, ob du alle oder nur ausgewählte Spieler mitspielen lassen möchtest.
 ```yaml

@@ -28,14 +28,24 @@ discordBotToken: "DEIN TOKEN"
 **Discord einrichten und konfigurieren**
 
 1. Solltest du noch keinen Discord Server haben, erstelle dir einen neuen.
-2. Erstelle eine Rolle, um es Usern zu ermöglichen, sich für den nächsten Speedrun anzumelden. Klicke mit einem Rechtsklick auf die Rolle, kopiere die Rollen ID und füge sie in die *config.yaml* ein. Diese Rolle musst du aber nicht erstellen, dass macht der Bot automatisch, wenn du bei *registredRole* nichts angibst.
+2. Lade deinen Discord Bot auf den eben erstellten Discord Server ein.
+- Klicke im [Developerportal](https://discord.com/developers/applications) auf deine Applikation
+  - Gehe dann zu OAuth2 und auf den URL Generator
+    - Bei den Scopes wählst du Bot aus. Folgende Berechtigungen musst du dem Bot geben, damit er funktionieren kann:
+
+    | Berechtigung | Beschreibung |
+    | ------------ | ------------ |
+    | Manage Roles |  |
+    | Send Messages | platzhalter |
+4. Erstelle eine Rolle, die dem Bot hilft, die Discordnamen mit den Minecraftnamen der Spieler zu verknüpfen. Trage den Namen der Rolle in die *config.yaml* ein. Diese Rolle musst du aber nicht erstellen, dass macht der Bot automatisch, wenn du bei *registredRole* nichts eingibst.
 ```yaml
-registredRole: "ROLLE FÜR NEUE SPIELER"   # eigene Rolle
-registredRole: ""                         # automatische Rolle
+registredRole: "Verknüpft"   # eigene Rolle
+registredRole: ""            # automatisch erstellte Rolle
 ```
-3. Du benötigst noch eine zweite Rolle für Spieler, die bereits spielen. Erstelle also eine zweite Rolle. Klicke mit einem Rechtsklick auf die Rolle, kopiere die Rollen ID und füge sie in die *config.yaml* ein.
+4. Du benötigst noch eine zweite Rolle für Spieler, die in der Warteschlange auf ihren nächsten Versuch warten. Erstelle dazu eine Rolle und füge den Namen der Rolle bei *activeRole:* in die *config.yaml* ein oder lasse *activeRole:* frei, damit der Bot die Rolle selbst erstellt.
 ```yaml
-activeRole: "AKTIVER SPIELER"
+activeRole: "Warteschlange" # eigene Rolle
+activeRole: ""              # automatisch erstelle Rolle
 ```
 Du kannst dich hierbei noch entscheiden, ob du alle oder nur ausgewählte Spieler mitspielen lassen möchtest.
 ```yaml
@@ -43,7 +53,7 @@ playerAutoActive: true    # alle Spieler
 playerAutoActive: false   # ausgewählte Spieler
 ```
 - Spieler whitelisten
-  - Solltest du *playerAutoActive* auf *false* setzen, kannst du auf deinem Discord Server Spieler mit dem Befehl */active add Discordname* Spieler zur Whitelist hinzufügen.
+  - Solltest du *playerAutoActive* auf *false* setzen, kannst du auf deinem Discord Server Spieler mit dem Befehl */active add Discordname* Spieler zur Warteschlange hinzufügen.
 
 
 Deine config.yaml sollte am Ende Beispielweise so aussehen. Natürlich musst du deine eigenen Werte eintragen und auf keinen Fall unsere 1:1 übernehmen.
@@ -51,6 +61,5 @@ Deine config.yaml sollte am Ende Beispielweise so aussehen. Natürlich musst du 
 discordBotToken: "OTk2ODc3NzM5ODUwMjE5NTQy.GJCxX_.eV3QktOWlziJbPgjy7dQX_9djWtOv6Wt2FgljE"
 registredRole: "Wartet"
 activeRole: "Teilnehmer"
-serverId: "754066899222003712"
 playerAutoActive: true
 ```

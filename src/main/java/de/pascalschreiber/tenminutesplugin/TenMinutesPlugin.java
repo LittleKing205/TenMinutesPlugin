@@ -10,6 +10,8 @@ import de.pascalschreiber.tenminutesplugin.util.Timer;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.HashMap;
+
 public final class TenMinutesPlugin extends JavaPlugin {
 
     private BotMain discordBot;
@@ -20,6 +22,7 @@ public final class TenMinutesPlugin extends JavaPlugin {
     public Config timersConfig;
     public PlayerSelector playerSelector;
     public Player currentPlayer;
+    public HashMap<String, Player> registerCodes;
 
     @Override
     public void onEnable() {
@@ -29,6 +32,7 @@ public final class TenMinutesPlugin extends JavaPlugin {
             getPluginLoader().disablePlugin(this);
         }
 
+        registerCodes = new HashMap<String, Player>();
         playerSelector = new PlayerSelector(this);
         playersListConfig = new Config(this, "playerslist");
         lastPlayerConfig = new Config(this, "lastplayerdata");

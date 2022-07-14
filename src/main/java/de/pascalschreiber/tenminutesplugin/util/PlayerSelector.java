@@ -6,6 +6,10 @@ import org.bukkit.entity.Player;
 import org.javacord.api.entity.permission.Role;
 import org.javacord.api.entity.user.User;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.UUID;
+
 public class PlayerSelector {
 
     private TenMinutesPlugin plugin;
@@ -49,7 +53,17 @@ public class PlayerSelector {
         return false;
     }
 
-    public void rollNewRound() {
+    public void generateNewPlayersList() {
+        List<String> players = new ArrayList();
+        for (String uuid = plugin.playersListConfig.getConfig().getConfigurationSection("players").getKeys(false)) {
+            players.add(uuid);
+        }
+        plugin.currendRoundConfig.getConfig().set("players", players);
+        plugin.currendRoundConfig.save();
+    }
 
+    public Player setNextPlayer(Player player) {
+        String uuid = plugin.currendRoundConfig.getConfig().getStringList("players").stream().findFirst().get();
+        return plugin.getServer().getPlayer(uuid);
     }
 }

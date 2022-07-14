@@ -16,10 +16,12 @@ public final class TenMinutesPlugin extends JavaPlugin {
 
     private BotMain discordBot;
 
-    public Timer timer;
     public Config playersListConfig;
     public Config lastPlayerConfig;
     public Config timersConfig;
+    public Config currendRoundConfig;
+
+    public Timer timer;
     public PlayerSelector playerSelector;
     public Player currentPlayer;
     public HashMap<String, Player> registerCodes;
@@ -37,6 +39,7 @@ public final class TenMinutesPlugin extends JavaPlugin {
         playersListConfig = new Config(this, "playerslist");
         lastPlayerConfig = new Config(this, "lastplayerdata");
         timersConfig = new Config(this, "timers");
+        currendRoundConfig = new Config(this, "currentround");
 
         getServer().getPluginManager().registerEvents(new PlayerJoinListener(this), this);
         getServer().getPluginManager().registerEvents(new PlayerLoginListener(this), this);

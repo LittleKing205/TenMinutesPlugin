@@ -9,7 +9,7 @@ Die Regeln sind simpel. Die Spieler dürfen sich nicht über Strategien, den akt
 Wurde Minecraft nicht während eines Spieler-Zlykus durchgespielt, wird die Reihenfolge neu gemischt und es geht von vorne los.
 
 # Installation
-1. Lade dir die neueste Version des Plugins [hier](https://github.com/LittleKing205/TenMinutesPlugin/releases) herunter.
+1. Lade dir die neueste Version des Plugins [hier](https://github.com/LittleKing205/TenMinutesPlugin/releases/latest) herunter.
 2. Sobald der Download abgeschlossen ist, musst du die .jar in den plugins Ordner deines Server verschieben.
 3. Damit du das Plugin vollständig einrichten kannst, musst du deinen Server jetzt neu starten.
 4. Wenn du nicht weißt, was du tust, befolge den Anweisungen in der [Konfigurations-Anleitung](https://github.com/LittleKing205/TenMinutesPlugin/blob/master/README.md#konfiguration)
@@ -17,7 +17,7 @@ Wurde Minecraft nicht während eines Spieler-Zlykus durchgespielt, wird die Reih
 # Konfiguration
 **den Discord Bot erstellen**
 
-Damit du und deine Mitspier erinnert werden können, musst du unseren Discord Bot einrichten.
+Damit du und deine Mitspieler erinnert werden können, musst du unseren Discord Bot einrichten.
 1. Erstelle dir dazu [hier](https://discord.com/developers/applications) eine neue Applikation.
 2. Du wirst in diesem Fenster dazu aufgefordert, der Applikation einen Namen zu geben. Diesen Namen wird der Bot später übernehmen.
 3. Um jetzt auch den Bot erstellen zu können, klicke in der Seitenleiste auf *Bot*, dann auf *Add Bot* und bestätige deine Aktion.
@@ -28,11 +28,11 @@ discordBotToken: "DEIN TOKEN"
 **Discord einrichten und konfigurieren**
 
 1. Solltest du noch keinen Discord Server haben, erstelle dir einen neuen.
-3. Erstelle eine Rolle, um es Usern zu ermöglichen, sich für den nächsten Speedrun anzumelden. Klicke mit einem Rechtsklick auf die Rolle, kopiere die Rollen ID und füge sie in die *config.yaml* ein.
+2. Erstelle eine Rolle, um es Usern zu ermöglichen, sich für den nächsten Speedrun anzumelden. Klicke mit einem Rechtsklick auf die Rolle, kopiere die Rollen ID und füge sie in die *config.yaml* ein.
 ```yaml
 registredRole: "ROLLE FÜR NEUE SPIELER"
 ```
-4. Du benötigst noch eine zweite Rolle für Spieler, die bereits spielen. Erstelle also eine zweite Rolle. Klicke mit einem Rechtsklick auf die Rolle, kopiere die Rollen ID und füge sie in die *config.yaml* ein.
+3. Du benötigst noch eine zweite Rolle für Spieler, die bereits spielen. Erstelle also eine zweite Rolle. Klicke mit einem Rechtsklick auf die Rolle, kopiere die Rollen ID und füge sie in die *config.yaml* ein.
 ```yaml
 activeRole: "AKTIVER SPIELER"
 ```

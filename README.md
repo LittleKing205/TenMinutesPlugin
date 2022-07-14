@@ -28,9 +28,10 @@ discordBotToken: "DEIN TOKEN"
 **Discord einrichten und konfigurieren**
 
 1. Solltest du noch keinen Discord Server haben, erstelle dir einen neuen.
-2. Erstelle eine Rolle, um es Usern zu ermöglichen, sich für den nächsten Speedrun anzumelden. Klicke mit einem Rechtsklick auf die Rolle, kopiere die Rollen ID und füge sie in die *config.yaml* ein.
+2. Erstelle eine Rolle, um es Usern zu ermöglichen, sich für den nächsten Speedrun anzumelden. Klicke mit einem Rechtsklick auf die Rolle, kopiere die Rollen ID und füge sie in die *config.yaml* ein. Diese Rolle musst du aber nicht erstellen, dass macht der Bot automatisch, wenn du bei *registredRole* nichts angibst.
 ```yaml
-registredRole: "ROLLE FÜR NEUE SPIELER"
+registredRole: "ROLLE FÜR NEUE SPIELER"   # eigene Rolle
+registredRole: ""                         # automatische Rolle
 ```
 3. Du benötigst noch eine zweite Rolle für Spieler, die bereits spielen. Erstelle also eine zweite Rolle. Klicke mit einem Rechtsklick auf die Rolle, kopiere die Rollen ID und füge sie in die *config.yaml* ein.
 ```yaml

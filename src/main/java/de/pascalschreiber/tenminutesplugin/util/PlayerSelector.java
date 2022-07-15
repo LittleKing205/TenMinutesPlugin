@@ -1,14 +1,11 @@
 package de.pascalschreiber.tenminutesplugin.util;
 
 import de.pascalschreiber.tenminutesplugin.TenMinutesPlugin;
-import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.Player;
 import org.javacord.api.entity.permission.Role;
 import org.javacord.api.entity.user.User;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.UUID;
+import java.util.*;
 
 public class PlayerSelector {
 
@@ -53,17 +50,31 @@ public class PlayerSelector {
         return false;
     }
 
-    public void generateNewPlayersList() {
+    public void generateNewPlayersList() throws Exception {
         List<String> players = new ArrayList();
-        for (String uuid = plugin.playersListConfig.getConfig().getConfigurationSection("players").getKeys(false)) {
+        Set<String> keys = plugin.playersListConfig.getConfig().getConfigurationSection("players").getKeys(false);
+        if (keys.size() == 0)
+            throw new Exception("List is empty.");
+        for (String uuid : keys) {
             players.add(uuid);
         }
         plugin.currendRoundConfig.getConfig().set("players", players);
         plugin.currendRoundConfig.save();
     }
 
-    public Player setNextPlayer(Player player) {
-        String uuid = plugin.currendRoundConfig.getConfig().getStringList("players").stream().findFirst().get();
-        return plugin.getServer().getPlayer(uuid);
+    public void nextPlayer() throws Exception {
+        Random random = new Random();
+        List<String> currentRoundList = plugin.currendRoundConfig.getConfig().getStringList("players");
+        if (currentRoundList.size() == 0)
+            generateNewPlayersList();
+        int randomIndex = random.nextInt(currentRoundList.size());
+        String uuid = currentRoundList.get(randomIndex);
+        currentRoundList.remove(randomIndex);
+        plugin.currentPlayerId = uuid;
+        plugin.currendRoundConfig.getConfig().set("players", currentRoundList);
+    }
+
+    public boolean isCurrentPlayer(Player player) {
+        return (plugin.currentPlayerId.equals(player.getUniqueId().toString()));
     }
 }

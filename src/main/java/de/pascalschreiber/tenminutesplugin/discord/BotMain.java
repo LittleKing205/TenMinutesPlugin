@@ -1,6 +1,7 @@
 package de.pascalschreiber.tenminutesplugin.discord;
 
 import de.pascalschreiber.tenminutesplugin.TenMinutesPlugin;
+import de.pascalschreiber.tenminutesplugin.discord.listener.MemberLeaveListener;
 import org.javacord.api.DiscordApi;
 import org.javacord.api.DiscordApiBuilder;
 import org.javacord.api.entity.permission.Role;
@@ -26,6 +27,7 @@ public class BotMain {
         this.plugin = plugin;
         discordApi = new DiscordApiBuilder()
                 .setToken(plugin.getConfig().getString("discordBotToken"))
+                .addListener(new MemberLeaveListener(this))
                 .login().join();
         server = discordApi.getServers().stream().findFirst().get();
         startUp();

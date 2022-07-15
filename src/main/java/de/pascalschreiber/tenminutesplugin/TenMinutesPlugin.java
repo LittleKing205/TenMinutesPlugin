@@ -23,7 +23,7 @@ public final class TenMinutesPlugin extends JavaPlugin {
 
     public Timer timer;
     public PlayerSelector playerSelector;
-    public Player currentPlayer;
+    public String currentPlayerId;
     public HashMap<String, Player> registerCodes;
 
     @Override

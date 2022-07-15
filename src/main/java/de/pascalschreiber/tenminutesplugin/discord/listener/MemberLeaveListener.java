@@ -10,7 +10,7 @@ public class MemberLeaveListener implements ServerMemberLeaveListener {
 
     private BotMain bot;
 
-    private MemberLeaveListener(BotMain bot) {
+    public  MemberLeaveListener(BotMain bot) {
         this.bot = bot;
     }
 

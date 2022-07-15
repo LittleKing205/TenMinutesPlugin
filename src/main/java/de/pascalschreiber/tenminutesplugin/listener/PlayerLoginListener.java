@@ -21,7 +21,10 @@ public class PlayerLoginListener implements Listener {
 
         // nicht verifiziert
         if (!plugin.playerSelector.isPlayerRegistred(event.getPlayer())) {
-            plugin.registerCodes.put(RandomString.get(7), event.getPlayer());
+            String code = RandomString.get(7);
+            plugin.registerCodes.put(code, event.getPlayer());
+            plugin.getLogger().info("Ein neuer Spieler wurde entdeckt... Code: "+code);
+            event.disallow(PlayerLoginEvent.Result.KICK_OTHER, Component.text(code));
         }
 
         // Spieler abweisen
@@ -31,7 +34,7 @@ public class PlayerLoginListener implements Listener {
         }
 
         //nicht dran
-        if (plugin.currentPlayer.getUniqueId() != event.getPlayer().getUniqueId()) {
+        if (!plugin.playerSelector.isCurrentPlayer(event.getPlayer())) {
             event.disallow(PlayerLoginEvent.Result.KICK_OTHER, Component.text("Du bist nicht dran."));
             return;
         }

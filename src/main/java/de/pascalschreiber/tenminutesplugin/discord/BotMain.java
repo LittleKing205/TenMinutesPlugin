@@ -1,76 +1,40 @@
 package de.pascalschreiber.tenminutesplugin.discord;
 
 import de.pascalschreiber.tenminutesplugin.TenMinutesPlugin;
-import de.pascalschreiber.tenminutesplugin.discord.listener.MemberLeaveListener;
-import org.javacord.api.DiscordApi;
-import org.javacord.api.DiscordApiBuilder;
-import org.javacord.api.entity.permission.Role;
-import org.javacord.api.entity.server.Server;
-import org.javacord.api.interaction.SlashCommand;
-import org.javacord.api.interaction.SlashCommandOption;
+import de.pascalschreiber.tenminutesplugin.discord.commands.RegisterCommand;
+import de.pascalschreiber.tenminutesplugin.discord.listener.BotReadyListener;
+import net.dv8tion.jda.api.JDA;
+import net.dv8tion.jda.api.JDABuilder;
 
-import java.util.Arrays;
+
+import javax.security.auth.login.LoginException;
 
 public class BotMain {
 
     private TenMinutesPlugin plugin;
-    private DiscordApi discordApi;
-    private Server server;
-
-    private long activeRoleId;
-    public Role activeRole;
-
-    private long registredRoleId;
-    public Role registredRole;
+    private JDA jda;
 
     public BotMain(TenMinutesPlugin plugin) {
         this.plugin = plugin;
-        discordApi = new DiscordApiBuilder()
-                .setToken(plugin.getConfig().getString("discordBotToken"))
-                .addListener(new MemberLeaveListener(this))
-                .login().join();
-        server = discordApi.getServers().stream().findFirst().get();
-        startUp();
+        try {
+            jda = JDABuilder.createDefault(getPlugin().getConfig().getString("discordBotToken"))
+                    .addEventListeners(new BotReadyListener(this))
+                    .addEventListeners(new RegisterCommand(this))
+                    .build();
+        } catch(LoginException e) {
+            e.printStackTrace();
+        }
     }
 
-    private void startUp() {
-        for(Role role : server.getRoles()) {
-            if (role.getName().equals(plugin.getConfig().getString("registredRole"))) {
-                registredRoleId = role.getId();
-                registredRole = role;
-            }
-            if (role.getName().equals(plugin.getConfig().getString("activeRole"))) {
-                activeRoleId = role.getId();
-                activeRole = role;
-            }
-        }
-
-        if (registredRole == null) {
-            registredRole = server.createRoleBuilder().setName(plugin.getConfig().getString("registredRole")).create().join();
-            registredRoleId = registredRole.getId();
-        }
-        if (activeRole == null) {
-            activeRole = server.createRoleBuilder().setName(plugin.getConfig().getString("activeRole")).create().join();
-            activeRoleId = activeRole.getId();
-        }
-
-        SlashCommand command = SlashCommand.with("register", "Registriert einen Minecraft Account ins Spiel",
-                        Arrays.asList(
-                                SlashCommandOption.createStringOption("Code", "Der Registrierungscode, der beim Login angezeigt wird.", true)
-                        ))
-                .createForServer(server)
-                .join();
-    }
-
-    public Server getServer() {
-        return server;
+    public void shutdown() {
+        jda.shutdown();
     }
 
     public TenMinutesPlugin getPlugin() {
         return plugin;
     }
 
-    public DiscordApi getApi() {
-        return discordApi;
+    public JDA getDicordBot() {
+        return jda;
     }
 }

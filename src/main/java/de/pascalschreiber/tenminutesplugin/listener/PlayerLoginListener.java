@@ -25,6 +25,7 @@ public class PlayerLoginListener implements Listener {
             plugin.registerCodes.put(code, event.getPlayer());
             plugin.getLogger().info("Ein neuer Spieler wurde entdeckt... Code: "+code);
             event.disallow(PlayerLoginEvent.Result.KICK_OTHER, Component.text(code));
+            return;
         }
 
         // Spieler abweisen

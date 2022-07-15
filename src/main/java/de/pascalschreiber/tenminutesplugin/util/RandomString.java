@@ -5,7 +5,7 @@ import java.util.Random;
 public class RandomString {
 
     public static String get(int length) {
-        String alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890ß!?";
+        String alphabet = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890ß";
         StringBuilder stringBuilder = new StringBuilder();
         Random random = new Random();
 

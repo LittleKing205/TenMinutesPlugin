@@ -1,6 +1,9 @@
 package de.pascalschreiber.tenminutesplugin.util;
 
 import de.pascalschreiber.tenminutesplugin.TenMinutesPlugin;
+import net.dv8tion.jda.api.entities.Member;
+import net.dv8tion.jda.api.entities.Role;
+import net.dv8tion.jda.api.entities.User;
 import org.bukkit.entity.Player;
 
 import java.util.*;
@@ -14,66 +17,48 @@ public class PlayerSelector {
     }
 
     public boolean isPlayerRegistred(Player player) {
-        return plugin.playersListConfig.getConfig().isSet("players." + player.getUniqueId().toString() + ".Name");
-    }
-
-    public boolean isPlayerRegistred() {
-        /*
-        for (String key : plugin.playersListConfig.getConfig().getConfigurationSection("players").getKeys(false)) {
-            if (plugin.playersListConfig.getConfig().getLong("players." + key + ".DiscordId") == user.getId())
-                return true;
-        }*/
-        return false;
+        return plugin.playersListConfig.getConfig().isSet("player." + player.getUniqueId().toString() + ".Name");
     }
 
     public boolean isPlayerActive(Player player) {
-        /*long discordUserId = plugin.playersListConfig.getConfig().getLong("players." + player.getUniqueId().toString() + ".DiscordId");
-        try {
-            User discordUser = plugin.getDiscordBot().getApi().getUserById(discordUserId).get();
-            for (Role role : discordUser.getRoles(plugin.getDiscordBot().getServer())) {
-                if (role.getId() == plugin.getDiscordBot().activeRole.getId())
-                    return true;
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-            return false;
-        }*/
-        return false;
-    }
-
-    public boolean isPlayerActive() {
-        /*for (Role role : user.getRoles(plugin.getDiscordBot().getServer())) {
-            if (role.getId() == plugin.getDiscordBot().activeRole.getId())
-                return true;
-        }*/
-        return false;
+        String discordUserId = plugin.playersListConfig.getConfig().getString("player." + player.getUniqueId().toString() + ".DiscordId");
+        Member discordUser = plugin.getDiscordBot().getServer().retrieveMemberById(discordUserId).complete();
+        return discordUser.getRoles().contains(plugin.getDiscordBot().activeRole);
     }
 
     public void generateNewPlayersList() throws Exception {
         List<String> players = new ArrayList();
-        Set<String> keys = plugin.playersListConfig.getConfig().getConfigurationSection("players").getKeys(false);
+        Set<String> keys = plugin.playersListConfig.getConfig().getConfigurationSection("player").getKeys(false);
         if (keys.size() == 0)
             throw new Exception("List is empty.");
         for (String uuid : keys) {
             players.add(uuid);
         }
-        plugin.currendRoundConfig.getConfig().set("players", players);
+        plugin.currendRoundConfig.getConfig().set("player", players);
         plugin.currendRoundConfig.save();
     }
 
     public void nextPlayer() throws Exception {
         Random random = new Random();
-        List<String> currentRoundList = plugin.currendRoundConfig.getConfig().getStringList("players");
+        List<String> currentRoundList = plugin.currendRoundConfig.getConfig().getStringList("player");
         if (currentRoundList.size() == 0)
             generateNewPlayersList();
         int randomIndex = random.nextInt(currentRoundList.size());
         String uuid = currentRoundList.get(randomIndex);
         currentRoundList.remove(randomIndex);
         plugin.currentPlayerId = uuid;
-        plugin.currendRoundConfig.getConfig().set("players", currentRoundList);
+        plugin.currendRoundConfig.getConfig().set("player", currentRoundList);
     }
 
     public boolean isCurrentPlayer(Player player) {
+        if (plugin.currentPlayerId == null || plugin.currentPlayerId.isEmpty()) {
+            try {
+                nextPlayer();
+            } catch(Exception e) {
+                e.printStackTrace();
+                return false;
+            }
+        }
         return (plugin.currentPlayerId.equals(player.getUniqueId().toString()));
     }
 }

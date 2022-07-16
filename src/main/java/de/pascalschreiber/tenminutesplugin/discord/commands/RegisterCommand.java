@@ -27,16 +27,17 @@ public class RegisterCommand implements EventListener {
             if (bot.getPlugin().registerCodes.containsKey(code)) {
                 bot.getPlugin().getLogger().info("Code exists");
                 Player player = bot.getPlugin().registerCodes.get(code);
-                bot.getPlugin().playersListConfig.getConfig().set("player." + player.getUniqueId().toString() + ".name", player.getName());
+                bot.getPlugin().registerCodes.remove(code);
+                bot.getPlugin().playersListConfig.getConfig().set("player." + player.getUniqueId().toString() + ".Name", player.getName());
                 bot.getPlugin().playersListConfig.getConfig().set("player." + player.getUniqueId().toString() + ".DiscordId", event.getAuthor().getId());
-                bot.getPlugin().playersListConfig.getConfig().set("player." + player.getUniqueId().toString() + ".uuid", player.getUniqueId().toString());
+                bot.getPlugin().playersListConfig.getConfig().set("player." + player.getUniqueId().toString() + ".UUID", player.getUniqueId().toString());
                 bot.getPlugin().playersListConfig.save();
-                event.getMessage().getChannel().sendMessage(String.format("Moin %s... Du bist nun erfolgreich Registriert", player.getName()));
+                bot.getServer().addRoleToMember(event.getAuthor(), bot.registredRole).complete();
+                event.getMessage().getChannel().sendMessage(String.format("Moin %s... Du bist nun erfolgreich Registriert", player.getName())).complete();
                 bot.getPlugin().getLogger().info(String.format("Moin %s... Du bist nun erfolgreich Registriert", player.getName()));
-                event.getMessage().delete();
             } else {
                 bot.getPlugin().getLogger().info(String.format("Code %s DONT exists", code));
-                event.getMessage().reply("Dieser Code wurde in unserem System leider nicht gefunden.");
+                event.getMessage().reply("Dieser Code wurde in unserem System leider nicht gefunden.").complete();
             }
         }
     }

@@ -16,8 +16,7 @@ public class PlayerJoinListener  implements Listener {
 
     @EventHandler
     public void onPlayerJoin(PlayerJoinEvent event) {
-
-        plugin.timer = new Timer(plugin, plugin.timersConfig.getConfig().getInt("elipsedTime"), 0);
+        plugin.timer = new Timer(plugin, plugin.timersConfig.getConfig().getInt("elipsedTime", 0), 0);
         plugin.timer.start(event.getPlayer());
     }
 }

@@ -26,7 +26,7 @@ public class PlayerSelector {
         return discordUser.getRoles().contains(plugin.getDiscordBot().activeRole);
     }
 
-    public void generateNewPlayersList() throws Exception {
+    public List<String> generateNewPlayersList() throws Exception {
         List<String> players = new ArrayList();
         Set<String> keys = plugin.playersListConfig.getConfig().getConfigurationSection("player").getKeys(false);
         if (keys.size() == 0)
@@ -36,13 +36,14 @@ public class PlayerSelector {
         }
         plugin.currendRoundConfig.getConfig().set("player", players);
         plugin.currendRoundConfig.save();
+        return players;
     }
 
     public void nextPlayer() throws Exception {
         Random random = new Random();
         List<String> currentRoundList = plugin.currendRoundConfig.getConfig().getStringList("player");
         if (currentRoundList.size() == 0)
-            generateNewPlayersList();
+            currentRoundList = generateNewPlayersList();
         int randomIndex = random.nextInt(currentRoundList.size());
         String uuid = currentRoundList.get(randomIndex);
         currentRoundList.remove(randomIndex);

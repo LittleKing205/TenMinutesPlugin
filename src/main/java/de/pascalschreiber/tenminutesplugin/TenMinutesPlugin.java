@@ -39,13 +39,22 @@ public final class TenMinutesPlugin extends JavaPlugin {
         playersListConfig = new Config(this, "playerslist");
         lastPlayerConfig = new Config(this, "lastplayerdata");
         timersConfig = new Config(this, "timers");
-        currendRoundConfig = new Config(this, "currentround");
+        currendRoundConfig = new Config(this, "currRound");
 
         getServer().getPluginManager().registerEvents(new PlayerJoinListener(this), this);
         getServer().getPluginManager().registerEvents(new PlayerLoginListener(this), this);
         getServer().getPluginManager().registerEvents(new PlayerLeaveListener(this), this);
 
         discordBot = new BotMain(this);
+
+        try {
+            playerSelector.nextPlayer();
+        } catch (Exception e) {
+            getLogger().warning("Spieler Liste ist leer");
+            e.printStackTrace();
+            getLogger().warning("Spieler Liste ist leer");
+        }
+        getLogger().info("Der Aktuelle Spieler ist:" + currentPlayerId);
     }
 
     @Override

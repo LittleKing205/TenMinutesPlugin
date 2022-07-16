@@ -40,7 +40,7 @@ public class Timer {
             message.append(String.format("%02d", seconds));
 
             player.sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(message.toString()));
-        }, 0, 100, TimeUnit.MILLISECONDS);
+        }, 5000, 100, TimeUnit.MILLISECONDS);
     }
 
     public void stop() {

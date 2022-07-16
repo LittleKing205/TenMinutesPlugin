@@ -15,6 +15,12 @@ public class PlayerLeaveListener implements Listener {
 
     @EventHandler
     public void onPlayerLeave(PlayerQuitEvent event) {
-
+        if (event.getReason() == PlayerQuitEvent.QuitReason.KICKED) {
+            try {
+                plugin.playerSelector.nextPlayer();
+            } catch (Exception e) {
+                plugin.getLogger().warning("No registred Players in List!");
+            }
+        }
     }
 }

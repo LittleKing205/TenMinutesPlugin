@@ -45,10 +45,16 @@ public class Timer {
             player.sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(message.toString()));
 
             if (sessionTime >= maxSessionTime) {
-                player.kick(Component.text("Deine Zeit ist abgelaufen."));
+                plugin.getServer().getScheduler().runTask(plugin, new Runnable() {
+                    @Override
+                    public void run() {
+                        player.kick(Component.text("Deine Zeit ist abgelaufen."));
+                    }
+                });
+
             }
 
-        }, 5000, 100, TimeUnit.MILLISECONDS);
+        }, 2000, 100, TimeUnit.MILLISECONDS);
     }
 
     public void stop() {

@@ -26,10 +26,13 @@ public class PlayerLeaveListener implements Listener {
 
         String[] base64invs = Serialization.invToBase64(event.getPlayer().getInventory());
         plugin.lastPlayerConfig.getConfig().set("lastSessionTimer", plugin.timer.getSessionTimeMilis());
+        plugin.lastPlayerConfig.getConfig().set("health", event.getPlayer().getHealth());
+        plugin.lastPlayerConfig.getConfig().set("hunger", event.getPlayer().getFoodLevel());
         plugin.lastPlayerConfig.getConfig().set("inventory", base64invs[0]);
         plugin.lastPlayerConfig.getConfig().set("armor", base64invs[1]);
         plugin.lastPlayerConfig.save();
         plugin.timersConfig.getConfig().set("elipsedTime", plugin.timer.getElapsedTimeMilis());
+        plugin.timersConfig.save();
         plugin.timer.stop();
     }
 }

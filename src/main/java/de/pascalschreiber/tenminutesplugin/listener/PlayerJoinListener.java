@@ -24,6 +24,8 @@ public class PlayerJoinListener  implements Listener {
             ItemStack[][] inventorys = Serialization.base64ToInv(new String[]{ inventory, armor });
             event.getPlayer().getInventory().setContents(inventorys[0]);
             event.getPlayer().getInventory().setArmorContents(inventorys[1]);
+            event.getPlayer().setHealth(plugin.lastPlayerConfig.getConfig().getDouble("health"));
+            event.getPlayer().setFoodLevel(plugin.lastPlayerConfig.getConfig().getInt("hunger"));
         }
 
         plugin.timer = new Timer(plugin, plugin.timersConfig.getConfig().getInt("elipsedTime", 0), 0);

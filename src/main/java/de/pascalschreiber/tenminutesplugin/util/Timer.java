@@ -1,6 +1,7 @@
 package de.pascalschreiber.tenminutesplugin.util;
 
 import de.pascalschreiber.tenminutesplugin.TenMinutesPlugin;
+import net.kyori.adventure.text.Component;
 import net.md_5.bungee.api.ChatMessageType;
 import net.md_5.bungee.api.chat.TextComponent;
 import org.bukkit.ChatColor;
@@ -18,11 +19,13 @@ public class Timer {
     private int sessionTime;
     private boolean paused;
     private ScheduledExecutorService executorService = Executors.newScheduledThreadPool(0);
+    private int maxSessionTime;
 
     public Timer(TenMinutesPlugin plugin, int elapsedTime, int sessionTime) {
         this.elapsedTime = elapsedTime;
         this.plugin = plugin;
         this.sessionTime = sessionTime;
+        this.maxSessionTime = plugin.getConfig().getInt("maxSessionMinutes", 10) * 60000;
     }
 
     public void start(Player player) {
@@ -40,6 +43,11 @@ public class Timer {
             message.append(String.format("%02d", seconds));
 
             player.sendMessage(ChatMessageType.ACTION_BAR, new TextComponent(message.toString()));
+
+            if (sessionTime >= maxSessionTime) {
+                player.kick(Component.text("Deine Zeit ist abgelaufen."));
+            }
+
         }, 5000, 100, TimeUnit.MILLISECONDS);
     }
 

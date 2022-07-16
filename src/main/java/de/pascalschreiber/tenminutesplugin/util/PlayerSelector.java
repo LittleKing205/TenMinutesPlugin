@@ -2,8 +2,6 @@ package de.pascalschreiber.tenminutesplugin.util;
 
 import de.pascalschreiber.tenminutesplugin.TenMinutesPlugin;
 import net.dv8tion.jda.api.entities.Member;
-import net.dv8tion.jda.api.entities.Role;
-import net.dv8tion.jda.api.entities.User;
 import org.bukkit.entity.Player;
 
 import java.util.*;
@@ -40,6 +38,10 @@ public class PlayerSelector {
     }
 
     public void nextPlayer() throws Exception {
+        nextPlayer(false);
+    }
+
+    public void nextPlayer(boolean notify) throws Exception {
         Random random = new Random();
         List<String> currentRoundList = plugin.currendRoundConfig.getConfig().getStringList("player");
         if (currentRoundList.size() == 0)
@@ -49,6 +51,14 @@ public class PlayerSelector {
         currentRoundList.remove(randomIndex);
         plugin.currentPlayerId = uuid;
         plugin.currendRoundConfig.getConfig().set("player", currentRoundList);
+        plugin.currendRoundConfig.save();
+        if (notify) {
+            Member discordUser = plugin.getDiscordBot().getServer().getMemberById(plugin.playersListConfig.getConfig().getString("player." + uuid + ".DiscordId"));
+            discordUser.getUser().openPrivateChannel().complete().sendMessage(
+                    String.format("Hey %s du bist nun an der reihe mit deinen 10 Minuten. Mach schnell, die anderen sind schon ganz gespannt.",
+                            plugin.playersListConfig.getConfig().getString("player." + uuid + ".Name"))
+            ).complete();
+        }
     }
 
     public boolean isCurrentPlayer(Player player) {
